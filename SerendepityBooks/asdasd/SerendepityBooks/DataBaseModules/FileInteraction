@@ -1,0 +1,178 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <fstream>
+#include <vector>
+
+using namespace std;
+
+struct Book
+{
+	string ISBN, title, author, publisher, dateAdded;
+	int quantity;
+	double wholesaleCost, retailPrice;
+};
+
+void operator>>(ofstream&, Book&);
+void operator<<(ifstream&, Book&);
+void operator<<(istream&, Book&);
+
+void writeOutBinary(vector<Book>, int);
+void writeOutText(vector<Book>, int);
+
+vector<Book> readInBinary(vector<Book>, int);
+vector<Book> readInText(vector<Book>, int);
+
+int main()
+{
+	const int NUM_OF_BOOKS = 20;
+	vector<Book> books(NUM_OF_BOOKS);
+
+	do{
+		for (int i = 0; i < NUM_OF_BOOKS; i++)
+		{
+			books[i].ISBN = "123456789-0";
+			books[i].title = "Book Title";
+			books[i].author = "Book Author";
+			books[i].publisher = "Book Publisher";
+			books[i].dateAdded = "xx/xx/xxxx";
+			books[i].quantity = i;
+			books[i].wholesaleCost = 0.99;
+			books[i].retailPrice = 9.99;
+		}
+	} while ((books.empty()));
+
+	books = readInText(books, NUM_OF_BOOKS);
+	cout << "The file was read in!\n";
+
+	writeOutText(books, NUM_OF_BOOKS);
+	cout << "The file was written out!\n";
+
+	return 0;
+}
+
+void operator<<(ofstream& out, Book& b) // Method returns void because returning ofstream reference caused error
+{
+	out << "Book:\n" << "\tISBN: " << b.ISBN << "\n\tTitle: " << b.title << "\n\tAuthor: " << b.author
+		<< "\n\tPublisher: " << b.publisher << "\n\tDate Added: " << b.dateAdded << "\n\tQuantity: "
+		<< b.quantity << "\n\tWholesale cost: " << b.wholesaleCost << "\n\tRetail price: " << b.retailPrice
+		<< endl << endl;
+
+	//return out;
+}
+
+void operator>>(ifstream& in, Book& b)
+{
+	in.ignore(10, '\n'); // To ignore "Book:" header before information
+	in.ignore(6, ':');
+	in >> b.ISBN;
+	in.ignore(100, ':');
+	//in.ignore();
+	getline(in, b.title, '\n');
+	in.ignore(8, ':');
+	getline(in, b.author, '\n');
+	in.ignore(11, ':');
+	getline(in, b.publisher, '\n');
+	in.ignore(12, ':');
+	getline(in, b.dateAdded, '\n');
+	in.ignore(100, ':');
+	in >> b.quantity;
+	in.ignore(16, ':');
+	in >> b.wholesaleCost;
+	in.ignore(14, ':');
+	in >> b.retailPrice;
+	//in.ignore(10, '\n');
+
+	//return in;
+}
+
+void operator>>(istream& strm, Book& b)
+{
+	cout << "\nPlease enter the ISBN: ";
+	cin >> b.ISBN;
+	cin.ignore(10, '\n');
+	cout << "\nNow what is the book's title? ";
+	getline(cin, b.title, '\n');
+	cout << "\nWho wrote it? ";
+	getline(cin, b.author, '\n');
+	cout << "\nEnter the publisher? ";
+	getline(cin, b.publisher, '\n');
+	cout << "\nWhen was it added to the inventory? ";
+	getline(cin, b.dateAdded, '\n');
+	cin.ignore(10, '\n');
+	cout << "\nHow many copies does the store have? ";
+	cin >> b.quantity;
+	cout << "\nWhat is the wholesale cost? ";
+	cin >> b.wholesaleCost;
+	cout << "\nAnd how much is the store selling it for? ";
+	cin >> b.retailPrice;
+
+	//return strm
+}
+
+void writeOutBinary(vector<Book> books, int numBooks)
+{
+	fstream outfileBinary;
+	outfileBinary.open("inventoryOUT.txt", ios::out, ios::binary);
+
+	for (int n = 0; n < numBooks; n++)
+	{
+		Book bookN = books[n];
+		outfileBinary.write(reinterpret_cast<char*>(&bookN), sizeof(bookN));
+	}
+
+	outfileBinary.close();
+}
+
+void writeOutText(vector<Book> books, int numBooks)
+{
+	ofstream outfile;
+	outfile.open("inventoryOUT.txt");
+
+	for (int n = 0; n < numBooks; n++)
+	{
+		Book bookN = books[n];
+		outfile << bookN;
+	}
+
+	outfile.close();
+}
+
+vector<Book> readInBinary(vector<Book> books, int numBooks)
+{
+	fstream infileBinary;
+	infileBinary.open("inventoryIN.txt", ios::in, ios::binary);
+
+	int i = 0;
+	while (infileBinary && i < numBooks)
+	{
+
+	}
+
+	return books;
+}
+
+vector<Book> readInText(vector<Book> books, int numBooks)
+{
+	ifstream infile;
+	infile.open("InventoryTest.txt");
+
+	int i = 0;
+	if (infile)
+	{
+		while (!infile.eof() && i < numBooks)
+		{
+			infile >> books[i];
+			i++;
+			cout << "Book #" << i << " read from file\n";
+			if (!infile)
+			{
+				cout << "There's a problem with the file\n";
+			}
+		}
+	}
+
+	infile.close();
+	return books;
+}

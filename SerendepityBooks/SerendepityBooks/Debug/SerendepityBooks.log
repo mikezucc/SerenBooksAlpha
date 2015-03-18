@@ -1,0 +1,39 @@
+﻿Build started 3/18/2015 3:06:08 PM.
+     1>Project "C:\Users\mikez_000\Documents\GitHub\opencv-tests\SerendepityBooks\SerendepityBooks\SerendepityBooks.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DatabaseModule.cpp
+         DatabaseModule.cpp
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\date.h(10): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\date.h(11): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\date.h(56): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\date.h(66): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\date.h(76): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(209): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(219): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(231): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(392): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(411): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(413): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(421): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(437): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(462): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(474): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(493): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(495): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(503): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(519): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(544): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(557): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mikez_000\documents\github\opencv-tests\serendepitybooks\serendepitybooks\databasemodule.cpp(579): warning C4018: '<' : signed/unsigned mismatch
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mikez_000\Documents\GitHub\opencv-tests\SerendepityBooks\Debug\SerendepityBooks.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\mikez_000\Documents\GitHub\opencv-tests\SerendepityBooks\Debug\SerendepityBooks.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mikez_000\Documents\GitHub\opencv-tests\SerendepityBooks\Debug\SerendepityBooks.lib" /MACHINE:X86 Debug\CashierFunctions.obj
+         Debug\CashierModule.obj
+         Debug\DatabaseModule.obj
+         Debug\Date.obj
+         Debug\Main.obj
+         SerendepityBooks.vcxproj -> C:\Users\mikez_000\Documents\GitHub\opencv-tests\SerendepityBooks\Debug\SerendepityBooks.exe
+     1>Done Building Project "C:\Users\mikez_000\Documents\GitHub\opencv-tests\SerendepityBooks\SerendepityBooks\SerendepityBooks.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.73
