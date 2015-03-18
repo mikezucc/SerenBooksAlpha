@@ -10,7 +10,7 @@ int main()
 	bool FirstRound = true;
 	int choice = -1;
 	DatabaseModule DB;
-
+	system("CLS");
 	do
 	{
 		if (FirstRound == true)
@@ -56,7 +56,7 @@ int main()
 			{
 
 			case 1 :
-				CashierModule();
+				CashierModule(&DB);
 				break;
 
 			case 2:

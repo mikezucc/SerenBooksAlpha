@@ -8,12 +8,11 @@
 using namespace std;
 
 //int main()  
-void CashierModule()
+void CashierModule(DatabaseModule &dbMod)
 {
 	int choice;
 	string title, ISBN;
 	vector<Book> ArrayBook(1);
-	DatabaseModule DB;
 	bool add = false;
 	int NumBookArr = 1;
 	
@@ -42,7 +41,7 @@ void CashierModule()
 	do
 	{
 		system("CLS");
-		ArrayBook[0] = DB.SearchForBook();
+		ArrayBook[0] = DBchild.SearchForBook();
 		system("CLS");
 
 		do {
@@ -60,7 +59,7 @@ void CashierModule()
 		}
 		else
 		{
-			ArrayBook.push_back(DB.SearchForBook());
+			ArrayBook.push_back(DBchild.SearchForBook());
 			NumBookArr++;
 		}
 

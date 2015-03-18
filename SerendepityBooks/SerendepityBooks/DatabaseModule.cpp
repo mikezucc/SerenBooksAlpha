@@ -1,8 +1,27 @@
 #include "DatabaseModule.h"
+#include <fstream>
 
 DatabaseModule::DatabaseModule()
 {
-
+	fstream infile;
+	infile.open("sweet.txt");
+	int i = 0;
+	while (!infile.eof())
+	{
+		Book testBook;
+		string bookTitle;
+		//cout << "Set title of book" << i << ": ";
+		getline(infile, bookTitle);
+		testBook.Title = bookTitle;
+		testBook.QuantityOnHand = i;
+		testBook.WholesaleCost = i * 3;
+		testBook.RetailPrice = i * 5;
+		addBookToList(testBook);
+		i++;
+	}
+	infile.close();
+	cout << "Composing hash table" << endl;
+	composeHashTable();
 }
 
 

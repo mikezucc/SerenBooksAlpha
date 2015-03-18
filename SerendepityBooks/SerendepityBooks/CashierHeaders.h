@@ -13,7 +13,9 @@ void ListBook(Book);											//ListBooks
 string InputBookInformationISBN();								//Get ISBN of book to purchase
 string InputBookInformationTitle();								//Get Title of book to purchase
 int TitleorISBN();												//Ask the user wheather he/she wants to add a book using ISBN or Title
-void CashierModule();
+void CashierModule(DatabaseModule);
+
+//DatabaseModule DBchild;
 
 
 
