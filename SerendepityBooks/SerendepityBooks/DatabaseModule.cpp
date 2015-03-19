@@ -1,6 +1,8 @@
 #include "DatabaseModule.h"
 #include <fstream>
-#include <stdlib.h>   
+#include <stdlib.h>
+
+using namespace std;
 
 DatabaseModule::DatabaseModule()
 {
@@ -197,7 +199,7 @@ Book DatabaseModule::SearchForBook()
 
 void DatabaseModule::EditBook()
 {
-	char choice;
+	char choice = '0';
 	bool Done = false;
 	cout << "Which Book\n";
 	Book BK = SearchForBook();
@@ -205,47 +207,120 @@ void DatabaseModule::EditBook()
 	while (!Done)
 	{
 		cout << "What would you like to edit\n";
-		cout << "1. ISBN \n	2. Title \n	3. Author \n 4. Publisher \n	5. DateAdded \n 6. Quantity \n 7. Wholsale Cost \n	8. Retail Price \n";
+		cout << "1. ISBN\n2. Title\n3. Author\n4. Publisher\n5. DateAdded\n6. Quantity\n7. Wholsale Cost\n8. Retail Price" << endl;
 		cin >> choice;
+		choice -= 48;
+		cin.ignore();
 		switch (choice)
 		{
 		case 1:
+			cout << "Original ISBN: " << BK.ISBN << endl;
 			getline(cin, BK.ISBN);
+			for (int i = 0; i < listOfBooks.size(); i++)
+			{
+				if (listOfBooks[i].Title == BK.Title)
+				{
+					listOfBooks[i] = BK;
+				}
+			}
+			cout << "Saved\n";
 			break;
 		case 2:
+			cout << "Original title: " << BK.Title << endl;
 			getline(cin, BK.Title);
+			for (int i = 0; i < listOfBooks.size(); i++)
+			{
+				if (listOfBooks[i].ISBN == BK.ISBN)
+				{
+					listOfBooks[i] = BK;
+				}
+			}
+			cout << "Saved\n";
 			break;
 		case 3:
+			cout << "Original Author: " << BK.Author << endl;
+			for (int i = 0; i < listOfBooks.size(); i++)
+			{
+				if (listOfBooks[i].ISBN == BK.ISBN)
+				{
+					listOfBooks[i] = BK;
+				}
+			}
+			cout << "Saved\n";
 			getline(cin, BK.Author);
 			break;
 		case 4:
+			cout << "Original Publisher: " << BK.Publisher << endl;
 			getline(cin, BK.Publisher);
+			for (int i = 0; i < listOfBooks.size(); i++)
+			{
+				if (listOfBooks[i].ISBN == BK.ISBN)
+				{
+					listOfBooks[i] = BK;
+				}
+			}
+			cout << "Saved\n";
 			break;
 		case 5:
 			//BK.DateAdded.InputDay();
+			//cout << "Original day: " << BK.dat << endl;
 			cout << "input day module not found" << endl;
 			break;
 		case 6:
+			cout << "Original quantity on hand: " << BK.QuantityOnHand << endl;
 			cin >> BK.QuantityOnHand;
 			cin.ignore();
+			for (int i = 0; i < listOfBooks.size(); i++)
+			{
+				if (listOfBooks[i].ISBN == BK.ISBN)
+				{
+					listOfBooks[i] = BK;
+				}
+			}
+			cout << "Saved\n";
 			break;
 		case 7:
+			cout << "Original wholesale cost: " << BK.WholesaleCost << endl;
 			cin >> BK.WholesaleCost;
 			cin.ignore();
+			for (int i = 0; i < listOfBooks.size(); i++)
+			{
+				if (listOfBooks[i].ISBN == BK.ISBN)
+				{
+					listOfBooks[i] = BK;
+				}
+			}
+			cout << "Saved\n";
 			break;
 		case 8:
+			cout << "Original retail price: " << BK.RetailPrice << endl;
 			cin >> BK.RetailPrice;
 			cin.ignore();
+			for (int i = 0; i < listOfBooks.size(); i++)
+			{
+				if (listOfBooks[i].ISBN == BK.ISBN)
+				{
+					listOfBooks[i] = BK;
+				}
+			}
+			cout << "Saved\n";
+			break;
+		case 'q':
+			Done = true;
 			break;
 		default:
-			cout << "Please enter a valid choice\n";
+			cout << "Saved\n";
+			Done = true;
+			break;
 		}
-
+		/*
 		cout << "Press q to stop editing\n";
 		cin >> choice;
 		if (choice == 'q')
 			Done = true;
+			*/
 	}
+	composeHashTable();
 }
 
 
@@ -666,11 +741,14 @@ void DatabaseModule::deleteBookUsingISBN(string ISBN)
 	bool foundBook = false;
 	int idx = 0;
 	vector <Book> newListOfBooks;
+	Book matchedBok;
 	while (idx < listOfBooks.size())
 	{
 		Book compareBook = listOfBooks[idx++];
 		if (compareBook.ISBN == ISBN)
 		{
+			cout << "found book with " << compareBook.ISBN << " and " << ISBN << endl;
+			matchedBok = compareBook;
 			foundBook = true;
 		}
 		else
@@ -678,6 +756,7 @@ void DatabaseModule::deleteBookUsingISBN(string ISBN)
 			newListOfBooks.push_back(compareBook);
 		}
 	}
+	//listOfBooks.clear();
 	listOfBooks = newListOfBooks;
 }
 
