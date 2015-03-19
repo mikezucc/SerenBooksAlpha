@@ -51,12 +51,12 @@ int main()
 	{
 		if (FirstRound == true)
 		{
-			bool returned = false;
+			FirstRound = false;
 			switch (choice)
 			{
 
 			case 1 :
-				CashierModule(&DB);
+				CashierModule(DB);
 				break;
 
 			case 2:
@@ -74,6 +74,7 @@ int main()
 		{
 			do
 			{
+			system("CLS");
 			cout << "\tWelcome back to the menu!" << endl;
 			cout << "What module do you wish to access: " << endl;
 			cout << "1. Cashier" << endl;
@@ -92,9 +93,8 @@ int main()
 			{
 
 			case 1:
-				CashierModule();
+				CashierModule(DB);
 				break;
-
 			case 2:
 				DB.Loop();
 				break;

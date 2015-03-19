@@ -15,12 +15,12 @@ void CategorySetup()		//Set up Categories
 
 }																	
 
-void ListBook(Book book) // Display books on screen.
+void ListBook(Book book, int quantityToBuy) // Display books on screen.
 {
 	static int Total;
 	double PriceLen = 1;		// Variables for Lenght of Price
 	double price = book.RetailPrice;
-	Total = Total + book.RetailPrice;
+	Total = quantityToBuy * book.RetailPrice;
 
 	for (PriceLen = 0; price > 9; PriceLen++)		// Get length of price
 	{
@@ -31,7 +31,8 @@ void ListBook(Book book) // Display books on screen.
 	
 
 	cout << setprecision(2) << fixed;  // set two decimals for cents
-	cout << book.QuantityOnHand << "\t" << book.ISBN << "\t" << book.Title << setw(29 - book.Title.size()) << book.RetailPrice << setw(19 - PriceLen) << Total << endl; // Display Book information relevant to Receit
+	//cout << quantityToBuy << "\t" << book.ISBN << "\t" << book.Title << setw(29 - book.Title.size()) << book.RetailPrice << setw(19 - PriceLen) << Total << endl;
+	cout << quantityToBuy << "\t" << book.ISBN << "\t" << book.Title << book.RetailPrice << Total << endl; // Display Book information relevant to Receit
 	
 
 

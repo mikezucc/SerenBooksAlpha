@@ -28,6 +28,8 @@ class DatabaseModule
 		void searchByISBNWithString(string);
 		HashTable composeHashForCompare(string);
 		vector <int> matchVectorMatrix;
+		vector <Book> listSortForSearch;
+		string generateRandomISBN();
 	public:
 		DatabaseModule();
 		virtual ~DatabaseModule();

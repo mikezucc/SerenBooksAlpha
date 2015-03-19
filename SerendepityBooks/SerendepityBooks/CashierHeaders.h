@@ -9,7 +9,7 @@ using namespace std;
 
 
 void CategorySetup();											//Set up Columns
-void ListBook(Book);											//ListBooks
+void ListBook(Book, int);											//ListBooks
 string InputBookInformationISBN();								//Get ISBN of book to purchase
 string InputBookInformationTitle();								//Get Title of book to purchase
 int TitleorISBN();												//Ask the user wheather he/she wants to add a book using ISBN or Title

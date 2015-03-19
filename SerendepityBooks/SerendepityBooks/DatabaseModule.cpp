@@ -1,5 +1,6 @@
 #include "DatabaseModule.h"
 #include <fstream>
+#include <stdlib.h>   
 
 DatabaseModule::DatabaseModule()
 {
@@ -13,15 +14,31 @@ DatabaseModule::DatabaseModule()
 		//cout << "Set title of book" << i << ": ";
 		getline(infile, bookTitle);
 		testBook.Title = bookTitle;
-		testBook.QuantityOnHand = i;
-		testBook.WholesaleCost = i * 3;
-		testBook.RetailPrice = i * 5;
+		testBook.ISBN = generateRandomISBN();
+		testBook.QuantityOnHand = rand() % 20;
+		testBook.WholesaleCost = rand() % 6;
+		testBook.RetailPrice = rand() % 9;
 		addBookToList(testBook);
 		i++;
 	}
 	infile.close();
 	cout << "Composing hash table" << endl;
 	composeHashTable();
+}
+
+string DatabaseModule::generateRandomISBN()
+{
+	string randomStrang = "";
+	for (int i = 0; i < 3; i++) {
+		int randomChar = rand() % 26;
+		char char1 = 'a' + randomChar;
+		char char2 = 'A' + randomChar;
+		char char3 = '0' + (randomChar % 9);
+		randomStrang.push_back(char1);
+		randomStrang.push_back(char2);
+		randomStrang.push_back(char3);
+	}
+	return randomStrang;
 }
 
 
@@ -36,6 +53,8 @@ void DatabaseModule::Loop()
 	while (!Done)
 	{
 		char Choice;
+		system("CLS");
+		cout << "Welcome to the Database module" << endl;
 		cout << "1. Look Up a Book\n";
 		cout << "2. Add a Book\n";
 		cout << "3. Edit a Book's Record\n";
@@ -43,6 +62,7 @@ void DatabaseModule::Loop()
 		cout << "5. Return to the Main Menu\n";
 		cin >> Choice;
 		cin.ignore();
+		system("CLS");
 		switch (Choice)
 		{
 		case '1':
@@ -69,16 +89,22 @@ void DatabaseModule::Loop()
 
 double DatabaseModule::PurchaseBook(Book BK, unsigned int Quant)
 {
-	if (BK.QuantityOnHand >= Quant)
+	for (int i = 0; i < listOfBooks.size(); i++)
 	{
-		BK.QuantityOnHand -= Quant;
-		return Quant * BK.RetailPrice;
+		if (listOfBooks[i].ISBN == BK.ISBN)
+		{
+			if (listOfBooks[i].QuantityOnHand >= Quant)
+			{
+				listOfBooks[i].QuantityOnHand -= Quant;
+				return Quant * listOfBooks[i].RetailPrice;
+			}
+			else
+			{
+				return 0;
+			}
+		}
 	}
-	else
-		return 0;
 }
-
-
 
 Book DatabaseModule::SearchForBook()
 {
@@ -90,35 +116,81 @@ Book DatabaseModule::SearchForBook()
 		cout << "1. ISBN \n2. Title" << endl;
 		cin >> choice;
 		cin.ignore();
+		system("CLS");
 	}
+	char inputchar = 0;
 	switch (choice)
 	{
-	case '1':
-		//search for book using isbn
-		while (BK.ISBN == "0")
-		{
-			string ISBN;
-			cout << "Enter ISBN";
-			getline(cin, ISBN);
-			if (BK.ISBN == "0")
+
+		case '1':
+			//search for book using isbn
+			while (BK.ISBN == "0")
 			{
-				cout << "Sorry this book could not be found\n";
+				string ISBN;
+				cout << "Enter ISBN: ";
+				getline(cin, ISBN);
+				system("CLS");
+				searchByISBNWithString(ISBN);
+				cout << "Choose Book by typing the number, OR type 'y' to try again: " << endl;
+				cin >> inputchar;
+				cin.ignore();
+				if (inputchar == 'y')
+				{
+
+				}
+				else
+				{
+					system("CLS");
+					int adjustedChar = (int)inputchar - 48;
+					cout << "You have chosen #" << adjustedChar << ", " << listSortForSearch[adjustedChar].Title << endl;
+					cout << "\tTitle: " << listSortForSearch[adjustedChar].Title << endl;
+					cout << "\tAutho: " << listSortForSearch[adjustedChar].Author << endl;
+					cout << "\tISBN: " << listSortForSearch[adjustedChar].ISBN << endl;
+					cout << "\tQuantity On Hand: " << listSortForSearch[adjustedChar].QuantityOnHand << endl;
+					cout << "\tRetail Price: " << listSortForSearch[adjustedChar].RetailPrice << endl;
+					cout << "\tWholesale Cost: " << listSortForSearch[adjustedChar].WholesaleCost << endl;
+					//cout << "\tDate Added: " << listSortForSearch[adjustedChar].DateAdded&.GetDay << "/" << listSortForSearch[adjustedChar].DateAdded&.GetMonth << "/" << listSortForSearch[adjustedChar].DateAdded&.GetYear  << endl;
+					system("pause");
+					BK = listSortForSearch[adjustedChar];
+					cout << endl;
+					return BK;
+				}
 			}
-		}
-		break;
-	case '2':
-		//search for book using title
-		while (BK.ISBN == "0")
-		{
-			string Title;
-			cout << "Enter Title";
-			getline(cin, Title);
-			searchByTitleWithString(Title);
-			if (BK.ISBN == "0")
+			break;
+		case '2':
+			//search for book using title
+			while (BK.ISBN == "0")
 			{
-				cout << "Sorry this book could not be found\n";
+				string Title;
+				cout << "Enter Title: ";
+				getline(cin, Title);
+				system("CLS");
+				searchByTitleWithString(Title);
+				cout << "Choose Book by typing the number, OR type 'y' to try again: " << endl;
+				cin >> inputchar;
+				cin.ignore();
+				if (inputchar == 'y')
+				{
+
+				}
+				else
+				{
+					system("CLS");
+					int adjustedChar = (int)inputchar - 48;
+					cout << "You have chosen #" << adjustedChar << ", " << listSortForSearch[adjustedChar].Title << endl;
+					cout << "\tTitle: " << listSortForSearch[adjustedChar].Title << endl;
+					cout << "\tAutho: " << listSortForSearch[adjustedChar].Author << endl;
+					cout << "\tISBN: " << listSortForSearch[adjustedChar].ISBN << endl;
+					cout << "\tQuantity On Hand: " << listSortForSearch[adjustedChar].QuantityOnHand << endl;
+					cout << "\tRetail Price: " << listSortForSearch[adjustedChar].RetailPrice << endl;
+					cout << "\tWholesale Cost: " << listSortForSearch[adjustedChar].WholesaleCost << endl;
+					//cout << "\tDate Added: " << listSortForSearch[adjustedChar].DateAdded&.GetDay << "/" << listSortForSearch[adjustedChar].DateAdded&.GetMonth << "/" << listSortForSearch[adjustedChar].DateAdded&.GetYear  << endl;
+					system("pause");
+					BK = listSortForSearch[adjustedChar];
+					cout << endl;
+					return BK;
+				}
 			}
-		}
 	}
 	return BK;
 }
@@ -224,12 +296,14 @@ void DatabaseModule::addBookToList(Book book2Add)
 void DatabaseModule::composeHashTable() {
 	Book bookToAnalyze;
 	DBHashTable.clear();
+	DBHashTableISBN.clear();
 
 	for (int i = 0; i < listOfBooks.size(); i++)
 	{
 		HashTable hashT;
 		HashTable hashTISBN;
 		hashT.hashTableSize = 0;
+		hashTISBN.hashTableSize = 0;
 		bookToAnalyze = listOfBooks[i];
 		cout << "Processing: " << bookToAnalyze.Title << endl;
 		//Title
@@ -436,13 +510,12 @@ void DatabaseModule::searchByTitleWithString(string searchQuery)
 	}
 
 	vector <int> deltaCopy;
-	vector <string> listSortForSearch;
 	for (int i = 0; i < deltaList.size(); i++)
 	{
 		int base = deltaList[i];
-		string baseTitle = listOfBooks[i].Title;
+		Book baseTitle = listOfBooks[i];
 		vector <int> temp;
-		vector <string> tempTitle;
+		vector <Book> tempTitle;
 		if (deltaCopy.size() == 0)
 		{
 			deltaCopy.push_back(base);
@@ -457,7 +530,7 @@ void DatabaseModule::searchByTitleWithString(string searchQuery)
 			{
 				//cout << "for k: " << k << endl;
 				int compare = deltaCopy[k];
-				string compareTitle = listSortForSearch[k];
+				Book compareTitle = listSortForSearch[k];
 				if (compare >= base && gradient)
 				{
 					temp.push_back(base);
@@ -478,10 +551,11 @@ void DatabaseModule::searchByTitleWithString(string searchQuery)
 			listSortForSearch = tempTitle;
 		}
 	}
+	cout << "Results for " << searchQuery << ":" << endl;
 	for (int k = 0; k < deltaCopy.size(); k++)
 	{
 		//cout << "ORDERED DELTA COPY >> " << deltaCopy[k] << endl;
-		cout << "ORDERED DELTA COPY TITLE >> " << listSortForSearch[k] << ", with relScore: " << deltaCopy[k] << endl;
+		cout << k << " -- " << listSortForSearch[k].Title << endl;// << ", with relScore: " << deltaCopy[k] << endl;
 	}
 	cout << endl;
 }
@@ -490,41 +564,37 @@ void DatabaseModule::searchByISBNWithString(string searchQuery)
 {
 	vector <int> deltaList;
 	HashTable searchHashT = composeHashForCompare(searchQuery);
-	for (int i = 0; i < DBHashTable.size(); i++)
+	cout << "bite that bark: " << DBHashTableISBN.size() << endl;
+	for (int i = 0; i < DBHashTableISBN.size(); i++)
 	{
 		HashTable hashT = DBHashTableISBN[i];
 		if (searchHashT.hashTableSize > hashT.hashTableSize)
 		{
+			//cout << "shit is too big with: " << searchHashT.hashTableSize << "compared to: " << hashT.hashTableSize << endl;
 			continue;
 		}
 		string stringBase = listOfBooks[i].ISBN;
-		int deltaSum = 0, charMatcher = 0, charMatcherBase = 0, charMatcherCompare = 0;
+		int deltaSum = 0;
 		for (int k = 0; (k < searchHashT.hashTableSize) && (k < hashT.hashTableSize); k++)
 		{
-			char charComp = getAdjustedChar(searchQuery.at(k));
-			char charBase = getAdjustedChar(stringBase.at(k));
-			charMatcherBase += (int)charBase;
-			charMatcherCompare += (int)charComp;
 			int hashTHashSearch = searchHashT.hashList[k];
 			int hashTHashBase = hashT.hashList[k];
 			//cout << "\thashTHashSearch is: " << charComp << endl;
 			//cout << "\thashTHashBase is: " << charBase << endl;
 			deltaSum += abs((double)(hashTHashSearch - hashTHashBase));
 		}
-		charMatcher = abs((double)(charMatcherBase - charMatcherCompare));
 		//cout << "\t\tDelta sum for base: " << listOfBooks[i].Title << ", is " << deltaSum << endl;
 		//cout << "\t\tChar matcher sum for base: " << listOfBooks[i].Title << ", is " << (int)charMatcher << endl;
 		deltaList.push_back(deltaSum);// *charMatcher);
 	}
 
 	vector <int> deltaCopy;
-	vector <string> listSortForSearch;
 	for (int i = 0; i < deltaList.size(); i++)
 	{
 		int base = deltaList[i];
-		string baseTitle = listOfBooks[i].ISBN;
+		Book baseTitle = listOfBooks[i];
 		vector <int> temp;
-		vector <string> tempTitle;
+		vector <Book> tempTitle;
 		if (deltaCopy.size() == 0)
 		{
 			deltaCopy.push_back(base);
@@ -539,7 +609,7 @@ void DatabaseModule::searchByISBNWithString(string searchQuery)
 			{
 				//cout << "for k: " << k << endl;
 				int compare = deltaCopy[k];
-				string compareTitle = listSortForSearch[k];
+				Book compareTitle = listSortForSearch[k];
 				if (compare >= base && gradient)
 				{
 					temp.push_back(base);
@@ -560,10 +630,11 @@ void DatabaseModule::searchByISBNWithString(string searchQuery)
 			listSortForSearch = tempTitle;
 		}
 	}
+	cout << "Results for " << searchQuery << ":" << endl;
 	for (int k = 0; k < deltaCopy.size(); k++)
 	{
 		//cout << "ORDERED DELTA COPY >> " << deltaCopy[k] << endl;
-		cout << "ORDERED DELTA COPY TITLE >> " << listSortForSearch[k] << ", with relScore: " << deltaCopy[k] << endl;
+		cout << k << " -- " << listSortForSearch[k].Title << " ------- ISBN: " << listSortForSearch[k].ISBN << endl;// << ", with relScore: " << deltaCopy[k] << endl;
 	}
 	cout << endl;
 }
